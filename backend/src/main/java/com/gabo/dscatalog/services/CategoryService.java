@@ -1,6 +1,7 @@
 package com.gabo.dscatalog.services;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.gabo.dscatalog.dto.CategoryDTO;
 import com.gabo.dscatalog.entities.Category;
 import com.gabo.dscatalog.repositories.CategoryRepository;
+import com.gabo.dscatalog.services.exceptions.EntityNotFoundException;
 
 @Service
 public class CategoryService {
@@ -22,6 +24,14 @@ public class CategoryService {
 		List<Category> list = repository.findAll();
 		
 		return list.stream().map(x -> new CategoryDTO(x)).collect(Collectors.toList());
+	}
+	
+	@Transactional(readOnly = true)
+	public CategoryDTO findById(Long id) {
+		Optional<Category> obj = repository.findById(id);
+		Category category = obj.orElseThrow(() -> new EntityNotFoundException("Entity not Found"));
+		
+		return new CategoryDTO(category);
 	}
 	
 }
