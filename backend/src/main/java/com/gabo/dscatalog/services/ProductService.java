@@ -14,8 +14,11 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.gabo.dscatalog.dto.CategoryDTO;
 import com.gabo.dscatalog.dto.ProductDTO;
+import com.gabo.dscatalog.entities.Category;
 import com.gabo.dscatalog.entities.Product;
+import com.gabo.dscatalog.repositories.CategoryRepository;
 import com.gabo.dscatalog.repositories.ProductRepository;
 import com.gabo.dscatalog.services.exceptions.DatabaseException;
 import com.gabo.dscatalog.services.exceptions.ResourceNotFoundException;
@@ -25,6 +28,9 @@ public class ProductService {
 	
 	@Autowired
 	private ProductRepository repository;
+	
+	@Autowired
+	private CategoryRepository categoryRepository;
 	
 	@Transactional(readOnly = true)
 	public List<ProductDTO> findAll() {
@@ -51,7 +57,7 @@ public class ProductService {
 	@Transactional
 	public ProductDTO insert(ProductDTO productDto) {
 		Product product = new Product(); 
-		product.setName(productDto.getName());
+		copyDtoToEntity(productDto, product);
 		product = repository.save(product);
 		
 		return new ProductDTO(product);
@@ -61,7 +67,7 @@ public class ProductService {
 	public ProductDTO update(ProductDTO productDto, Long id) {
 		try {
 			Product product = repository.getOne(id);
-			product.setName(productDto.getName());
+			copyDtoToEntity(productDto, product);
 			product = repository.save(product);
 			
 			return new ProductDTO(product);
@@ -80,6 +86,20 @@ public class ProductService {
 		}
 	}
 	
+	
+	public void copyDtoToEntity(ProductDTO productDto, Product product) {
+		product.setName(productDto.getName());
+		product.setDescription(productDto.getDescription());
+		product.setPrice(productDto.getPrice());
+		product.setImgUrl(productDto.getImgUrl());
+		product.setDate(productDto.getDate());
+		
+		product.getCategories().clear();
+		for ( CategoryDTO categoryDto : productDto.getCategories()) {
+			Category category = categoryRepository.getOne(categoryDto.getId());
+			product.getCategories().add(category);
+		}
+	}
 }
 
 
