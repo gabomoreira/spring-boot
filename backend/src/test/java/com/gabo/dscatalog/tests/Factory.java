@@ -20,4 +20,9 @@ public class Factory {
 		
 		return new ProductDTO(product, product.getCategories());
 	}
+	
+	public static Category createCategory() {
+		
+		return new Category(1L, "Food");
+	}
 }
