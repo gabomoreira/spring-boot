@@ -2,6 +2,8 @@ package com.gabo.dscatalog.resources;
 
 import java.net.URI;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -42,7 +44,7 @@ public class UserResource {
 	}
 	
 	@PostMapping
-	public ResponseEntity<UserDTO> insert(@RequestBody UserInsertDTO userDto) {
+	public ResponseEntity<UserDTO> insert(@Valid @RequestBody UserInsertDTO userDto) {
 		UserDTO newDto = service.insert(userDto);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
 					.buildAndExpand(newDto.getId()).toUri();
@@ -51,7 +53,7 @@ public class UserResource {
 	}
 	
 	@PutMapping(value = "/{id}")
-	public ResponseEntity<UserDTO> update(@PathVariable Long id, @RequestBody UserDTO userDto ){
+	public ResponseEntity<UserDTO> update(@PathVariable Long id, @Valid @RequestBody UserDTO userDto ){
 		userDto = service.update(userDto, id);
 		
 		return ResponseEntity.ok(userDto);
