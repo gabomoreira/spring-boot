@@ -8,6 +8,7 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 
 import com.gabo.dscatalog.entities.User;
+import com.gabo.dscatalog.services.validation.UserInsertValid;
 
 public class UserDTO implements Serializable{
 
