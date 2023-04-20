@@ -18,6 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.gabo.dscatalog.dto.RoleDTO;
 import com.gabo.dscatalog.dto.UserDTO;
 import com.gabo.dscatalog.dto.UserInsertDTO;
+import com.gabo.dscatalog.dto.UserUpdateDTO;
 import com.gabo.dscatalog.entities.Role;
 import com.gabo.dscatalog.entities.User;
 import com.gabo.dscatalog.repositories.RoleRepository;
@@ -71,7 +72,7 @@ public class UserService {
 	}
 
 	@Transactional
-	public UserDTO update(UserDTO userDto, Long id) {
+	public UserDTO update(UserUpdateDTO userDto, Long id) {
 		try {
 			User user = repository.getOne(id);
 			copyDtoToEntity(userDto, user);
