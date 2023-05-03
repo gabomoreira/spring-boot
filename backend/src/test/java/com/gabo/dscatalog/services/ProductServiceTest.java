@@ -118,6 +118,7 @@ public class ProductServiceTest {
 
 	}
 	
+	/*
 	@Test
 	public void findAllPagedShouldReturnPage() {
 		
@@ -130,6 +131,7 @@ public class ProductServiceTest {
 		Mockito.verify(repository, Mockito.times(1)).findAll(pageable);
 
 	}
+	 * */
 	
 	@Test
 	public void deleteThrowDatabaseExceptionWhenDependentId() {

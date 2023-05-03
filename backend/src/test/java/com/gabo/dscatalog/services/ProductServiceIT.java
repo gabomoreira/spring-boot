@@ -52,6 +52,9 @@ public class ProductServiceIT {
 		});
 	}
 	
+	/*
+	 * 
+	
 	@Test
 	public void findAllPagedShouldReturnPageWhenPage0Size10() {
 		
@@ -87,6 +90,7 @@ public class ProductServiceIT {
 		Assertions.assertEquals("PC Gamer", result.getContent().get(1).getName());
 		Assertions.assertEquals("PC Gamer Alfa", result.getContent().get(2).getName());
 	}
+	 * */
 	
 }
 

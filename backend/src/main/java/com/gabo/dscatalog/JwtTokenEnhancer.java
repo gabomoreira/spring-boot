@@ -17,7 +17,7 @@ import com.gabo.dscatalog.repositories.UserRepository;
 public class JwtTokenEnhancer implements TokenEnhancer {
 	
 	@Autowired
-	UserRepository userRepository;
+	private UserRepository userRepository;
 
 	@Override
 	public OAuth2AccessToken enhance(OAuth2AccessToken accessToken, OAuth2Authentication authentication) {
